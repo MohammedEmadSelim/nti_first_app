@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nti_first_app/compoments/cutsom_text_field.dart';
+import 'package:nti_first_app/core/theme/app_color.dart';
 
 void main() {
   runApp(const MyApp());
@@ -78,48 +80,67 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(
+          'B M I',
+          style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.w900),
+        ),
+        backgroundColor: AppColor.lightBlue,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 25,
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 35,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('Name'),
+                ],
+              ),
+              SizedBox(height: 10,),
+              CustomTextFormField(),
+
+              SizedBox(height: 20,),
+              Row(children: [
+                Text('Birth Date')
+              ],),
+              SizedBox(height: 10,),
+
+              CustomTextFormField(),
+              SizedBox(height: 20,),
+              Row(
+                children: [
+                  Text('Choose Gender',style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500
+                  ),),
+                ],
+              ),
+              SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+
+                children: [
+                  Image.asset('assets/female.png'),
+                  SizedBox(width: 60,),
+                  Image.asset('assets/male.png'),
+
+
+
+                ],
+              )
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
