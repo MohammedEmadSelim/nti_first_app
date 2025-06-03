@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nti_first_app/compoments/cutsom_text_field.dart';
+import 'package:nti_first_app/core/constants/app_image.dart';
 import 'package:nti_first_app/core/theme/app_color.dart';
 
 void main() {
@@ -33,13 +35,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -69,6 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
+  String genderSelection = '';
 
   @override
   Widget build(BuildContext context) {
@@ -104,36 +108,92 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text('Name'),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               CustomTextFormField(),
-
-              SizedBox(height: 20,),
-              Row(children: [
-                Text('Birth Date')
-              ],),
-              SizedBox(height: 10,),
-
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [Text('Birth Date')],
+              ),
+              SizedBox(
+                height: 10,
+              ),
               CustomTextFormField(),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
-                  Text('Choose Gender',style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500
-                  ),),
+                  Text(
+                    'Choose Gender',
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                  ),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: [
-                  Image.asset('assets/female.png'),
-                  SizedBox(width: 60,),
-                  Image.asset('assets/male.png'),
+                  // male image
+                  Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+setState(() {
+  genderSelection = 'male';
+});
+                          print('male');
+                        },
+                        child: IamgeContainer(
+                          genderSelection: genderSelection,
+                          path: AppImage.maleImage,
+                          value: 'male',
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'male',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: 60,
+                  ),
+                  //female images
+                  Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            genderSelection = 'female';
+                          });
 
-
-
+                        },
+                        child: IamgeContainer(
+                          genderSelection: genderSelection,
+                          path: AppImage.femaleImage,
+                          value: 'female',
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'female',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ),
                 ],
               )
             ],
@@ -144,3 +204,33 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+class IamgeContainer extends StatelessWidget {
+  const IamgeContainer({
+    super.key,
+    required this.genderSelection,
+    required this.path, required this.value,
+  });
+
+  final String genderSelection;
+  final String value;
+  final String path;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+            color: genderSelection == value
+                ? AppColor.purple
+                : Colors.transparent),
+        borderRadius: BorderRadius.all(
+          Radius.circular(16),
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: SvgPicture.asset(path),
+      ),
+    );
+  }
+}
