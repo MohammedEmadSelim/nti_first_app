@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nti_first_app/bmi_result.dart';
 import 'package:nti_first_app/compoments/cutsom_text_field.dart';
+import 'package:nti_first_app/compoments/iamge_container.dart';
 import 'package:nti_first_app/core/constants/app_image.dart';
 import 'package:nti_first_app/core/theme/app_color.dart';
 
@@ -60,6 +62,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  TextEditingController controller = TextEditingController();
+  TextEditingController weightController = TextEditingController();
 
   void _incrementCounter() {
     setState(() {
@@ -144,9 +148,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-setState(() {
-  genderSelection = 'male';
-});
+                          setState(() {
+                            genderSelection = 'male';
+                          });
                           print('male');
                         },
                         child: IamgeContainer(
@@ -176,7 +180,6 @@ setState(() {
                           setState(() {
                             genderSelection = 'female';
                           });
-
                         },
                         child: IamgeContainer(
                           genderSelection: genderSelection,
@@ -195,41 +198,138 @@ setState(() {
                     ],
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: 21,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Your Height(cm)',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                controller: controller,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: AppColor.lightBlue2,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide.none),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide.none),
+                  prefixIcon: GestureDetector(
+                    onTap: () {
+                      if (controller.text.isNotEmpty) {
+                        var res = int.parse(controller.text);
+                        res -= 1;
+                        controller.text = (res).toString();
+                        setState(() {});
+                      }
+                    },
+                    child: Icon(Icons.remove),
+                  ),
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      if (controller.text.isNotEmpty) {
+                        var res = int.parse(controller.text);
+                        res += 1;
+                        controller.text = (res).toString();
+                        setState(() {});
+                      }
+                    },
+                    child: Icon(Icons.add),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 21,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Your Weight(kg)',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                controller: weightController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: AppColor.lightBlue2,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide.none),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide.none),
+                  prefixIcon: GestureDetector(
+                    onTap: () {
+                      if (controller.text.isNotEmpty) {
+                        var res = int.parse(weightController.text);
+                        res -= 1;
+                        weightController.text = (res).toString();
+                        setState(() {});
+                      }
+                    },
+                    child: Icon(Icons.remove),
+                  ),
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      if (weightController.text.isNotEmpty) {
+                        var res = int.parse(weightController.text);
+                        res += 1;
+                        weightController.text = (res).toString();
+                        setState(() {});
+                      }
+                    },
+                    child: Icon(Icons.add),
+                  ),
+                ),
+              ),
+              Spacer(),
+              GestureDetector(
+                onTap: (){
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) =>BmiResult() ,));
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                    builder: (context) => BmiResult(),
+                  ), (route) {
+                    return false;
+                  },);
+
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  decoration: BoxDecoration(
+                    color: AppColor.purpl2,
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Calculate BMI',
+                        style: TextStyle(
+                          color: AppColor.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 30,),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class IamgeContainer extends StatelessWidget {
-  const IamgeContainer({
-    super.key,
-    required this.genderSelection,
-    required this.path, required this.value,
-  });
-
-  final String genderSelection;
-  final String value;
-  final String path;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: genderSelection == value
-                ? AppColor.purple
-                : Colors.transparent),
-        borderRadius: BorderRadius.all(
-          Radius.circular(16),
-        ),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: SvgPicture.asset(path),
       ),
     );
   }
