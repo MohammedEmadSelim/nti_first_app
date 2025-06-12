@@ -6,4 +6,6 @@ static const  Color lightBlue2 = Color(0x26B3B2EA);
 static const  Color purple = Color(0xff7876CD);
 static const  Color purpl2 = Color(0xff484783);
 static const  Color white = Color(0xffFFFFFF);
+static const  Color lightGrey = Color(0xffF8F9FFA6);
+static const  Color green = Color(0xff01502E);
 }

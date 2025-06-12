@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nti_first_app/compoments/cutsom_text_field.dart';
-import 'package:nti_first_app/core/constants/app_image.dart';
 import 'package:nti_first_app/core/theme/app_color.dart';
 
 class IamgeContainer extends StatelessWidget {
