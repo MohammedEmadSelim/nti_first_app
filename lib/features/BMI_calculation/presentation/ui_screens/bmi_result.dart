@@ -15,21 +15,24 @@ class BmiResult extends StatefulWidget {
   State<BmiResult> createState() => _BmiResultState();
 }
 
-class _BmiResultState extends State<BmiResult> {
+class _BmiResultState extends State<BmiResult> with WidgetsBindingObserver {
   late double bmiRes;
+
   @override
   void initState() {
-    // amount of bmi
+    WidgetsBinding.instance.addObserver(this);
     // TODO: implement initState
     super.initState();
-   bmiRes= context
+    bmiRes = context
         .read<CalculateBmiCubit>()
         .calculateBMI(height: widget.height, weight: widget.weight);
   }
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+    var screenSize = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       appBar: AppBar(
         title: Text('BMi result'),
